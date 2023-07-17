@@ -16,6 +16,11 @@ const BasicDetails = (props) => {
         [name]: value,
       },
     }));
+     props.setErrors((prevState) => ({
+       ...prevState,
+
+       street: "",
+     }));
   };
   const [state, setState] = useState({
     selectedCountry: "",
@@ -42,6 +47,12 @@ const BasicDetails = (props) => {
         ...prevState.address,
         state: state,
       },
+
+      
+    }));
+    props.setErrors((prevState) => ({
+      ...prevState,
+        state: "",
     }));
 
     setState({
@@ -50,29 +61,33 @@ const BasicDetails = (props) => {
       selectedCity: "",
       isCitySelected: false,
     });
-  };
+  }
   const onCityChange = (city) => {
     let setIsCitySelected = city !== "" ? true : false;
 
     props.setBasicDetails((prevState) => ({
       ...prevState,
-      address: {
-        ...prevState.address,
         city: city,
-      },
     }));
-
+     props.setErrors((prevState) => ({
+       ...prevState,
+       city: "",
+     }));
     setState({
       ...state,
       selectedCity: city,
       isCitySelected: setIsCitySelected,
     });
+  
+       setState({
+         ...state,
+         selectedCity: "",
+         isCitySelected: "",
+       });
+       
+       
   };
-  // const i = props.allData.length-1;
-  // console.log(i);
-  // const index = props.allData[i].basicDetails;
-  // console.log(index);
-  console.log("njlikmjljl", props.basicDetails);
+
   return (
     <>
       <h2>Basic Details</h2>
@@ -88,33 +103,48 @@ const BasicDetails = (props) => {
 
             firstname: e.target.value,
           }));
+          props.setErrors((prevState) => ({
+            ...prevState,
+
+            firstname: "",
+          }));
         }}
       />
       <InputField
         label="Lastname"
         name="lastname"
         value={props.basicDetails.lastname}
+        error={props.errors.lastname}
         onChange={(e) => {
           props.setBasicDetails((prevState) => ({
             ...prevState,
 
             lastname: e.target.value,
           }));
+          props.setErrors((prevState) => ({
+            ...prevState,
+
+            lastname: "",
+          }));
         }}
-        error={props.errors.lastname}
       />
       <InputField
         label="Phone"
         name="phone"
         value={props.basicDetails.phone}
+        error={props.errors.phone}
         onChange={(e) => {
           props.setBasicDetails((prevState) => ({
             ...prevState,
 
             phone: e.target.value,
           }));
+          props.setErrors((prevState) => ({
+            ...prevState,
+
+            phone: "",
+          }));
         }}
-        error={props.errors.phone}
       />
       <label>Street Address:</label>
       <InputField
@@ -154,6 +184,10 @@ const BasicDetails = (props) => {
               zipCode: e.target.value,
             },
           }));
+          props.setErrors((prevState) => ({
+            ...prevState,
+              zipCode: "",
+          }));
         }}
         error={props.errors.zipCode}
       />
@@ -163,11 +197,17 @@ const BasicDetails = (props) => {
         options={genderOptions}
         selectedOption={props.basicDetails.gender}
         error={props.errors.gender}
-        onOptionChange={(selectedOption) =>
-          props.setBasicDetails((prevDetails) => ({
-            ...prevDetails,
-            gender: selectedOption,
-          }))
+        onOptionChange={
+          (selectedOption) =>
+           { props.setBasicDetails((prevDetails) => ({
+              ...prevDetails,
+              gender: selectedOption,
+            }))
+             props.setErrors((prevDetails) => ({
+              ...prevDetails,
+              gender: "",
+            }))
+          }
         }
       />
       <InputField
@@ -175,13 +215,17 @@ const BasicDetails = (props) => {
         name="email"
         value={props.basicDetails.email}
         type="email"
+        error={props.errors.email}
         onChange={(e) => {
           props.setBasicDetails((prevState) => ({
             ...prevState,
             email: e.target.value,
           }));
+           props.setErrors((prevState) => ({
+             ...prevState,
+             email:"",
+           }));
         }}
-        error={props.errors.email}
       />
     </>
   );

@@ -10,32 +10,10 @@ const reducer = (state = initialState, action) => {
         allData: [...state.allData, action.payload],
       };
     case "DELETE_DATA":
-      // console.log(state.allData[0]);
-      // console.log(action.payload);
-      // const filteredTodos = state.allData.filter(
-      //   (todo) => todo.id !== action.payload
-      // );
-      //  console.log(filteredTodos);
-      // return {
-      //   ...state,
-      //   allData: filteredTodos,
-      // };
-
-      //console.log(state.allData[0]);
-      //console.log(action.payload);
-
       let filteredTodos;
-
-      if (Array.isArray(state.allData)) {
         filteredTodos = state.allData.filter(
           (todo) => todo.id !== action.payload
-        );
-      } else {
-        filteredTodos =
-          state.allData.id !== action.payload ? [state.allData] : [];
-      }
-
-      console.log(filteredTodos);
+        )
 
       return {
         ...state,

@@ -32,7 +32,13 @@ const GstDetails = (props) => {
         companyState: state,
       },
     }));
-
+props.setErrors((prevState) => ({
+  ...prevState,
+  companyaddress: {
+    ...prevState.companyaddress,
+    companyState: "",
+  },
+}));
     setState({
       selectedCountry: state,
       isCountrySelected: setIsCountrySelected,
@@ -50,62 +56,86 @@ const GstDetails = (props) => {
         companyCity: city,
       },
     }));
-
+  props.setErrors((prevState) => ({
+    ...prevState,
+    companyaddress: {
+      ...prevState.companyaddress,
+      companyCity: "",
+    },
+  }));
     setState({
       ...state,
       selectedCity: city,
       isCitySelected: setIsCitySelected,
     });
+     setState({
+       ...state,
+       selectedCity:"",
+       isCitySelected: "",
+     });
   };
   return (
     <div>
-
       <InputField
         label="GST Number"
         name="gstNumber"
         placeholdder="Format should be 06BZAHM6385P6Z2"
         value={props.gstDetails.gstNumber}
+        error={props.errors.gstNumber}
         onChange={(e) => {
           props.setGstDetails((prevState) => ({
             ...prevState,
 
             gstNumber: e.target.value,
           }));
+          props.setErrors((prevState) => ({
+            ...prevState,
+
+            gstNumber: "",
+          }));
         }}
-        error={props.errors.gstNumber}
       />
       <InputField
         label="Company Name"
         name="companyName"
         value={props.gstDetails.companyName}
+        error={props.errors.companyName}
         onChange={(e) => {
           props.setGstDetails((prevState) => ({
             ...prevState,
 
             companyName: e.target.value,
           }));
+          props.setErrors((prevState) => ({
+            ...prevState,
+
+            companyName: "",
+          }));
         }}
-        error={props.errors.companyName}
       />
       <InputField
         label="Company's Email ID"
         name="companyID"
         value={props.gstDetails.companyID}
+        error={props.errors.companyID}
         onChange={(e) => {
           props.setGstDetails((prevState) => ({
             ...prevState,
 
             companyID: e.target.value,
           }));
+          props.setErrors((prevState) => ({
+            ...prevState,
+
+            companyID: "",
+          }));
         }}
-        error={props.errors.companyID}
       />
       <label>Company Address : </label>
       <label>Street Address:</label>
       <InputField
         name="companystreet"
         value={props.gstDetails.companyaddress.companystreet}
-      
         onChange={(e) => {
           props.setGstDetails((prevState) => ({
             ...prevState,
@@ -114,8 +144,15 @@ const GstDetails = (props) => {
               companystreet: e.target.value,
             },
           }));
-      }}
-      error={props.errors.companystreet}
+          props.setErrors((prevState) => ({
+            ...prevState,
+            companyaddress: {
+              ...prevState.companyaddress,
+              companystreet: "",
+            },
+          }));
+        }}
+        error={props.errors.companystreet}
       />
 
       {/* <label>states</label>
@@ -155,7 +192,7 @@ const GstDetails = (props) => {
         label="zipCode"
         name="companyZipcode"
         value={props.gstDetails.companyaddress.companyZipcode}
-        
+        error={props.errors.companyZipcode}
         onChange={(e) => {
           props.setGstDetails((prevState) => ({
             ...prevState,
@@ -164,11 +201,15 @@ const GstDetails = (props) => {
               companyZipcode: e.target.value,
             },
           }));
+          // props.setGstDetails((prevState) => ({
+          //   ...prevState,
+          //   companyaddress: {
+          //     ...prevState.companyaddress,
+          //     companyZipcode: "",
+          //   },
+          // }));
         }}
-        error={props.errors.companyZipcode}
       />
-      
-
     </div>
   );
 };

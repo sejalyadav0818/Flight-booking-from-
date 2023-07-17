@@ -70,6 +70,11 @@ const ContactInformation = (props) => {
 
             mobilePhone: e.target.value,
           }));
+           props.setErrors((prevState) => ({
+             ...prevState,
+
+             mobilePhone: "",
+           }));
         }}
         error={props.errors.mobilePhone}
       />
@@ -82,6 +87,11 @@ const ContactInformation = (props) => {
             ...prevState,
 
             emergencyContactNumber: e.target.value,
+          }));
+          props.setErrors((prevState) => ({
+            ...prevState,
+
+            emergencyContactNumber:"",
           }));
         }}
         error={props.errors.emergencyContactNumber}
@@ -96,6 +106,11 @@ const ContactInformation = (props) => {
 
             emergencyContactName: e.target.value,
           }));
+          props.setErrors((prevState) => ({
+            ...prevState,
+
+            emergencyContactName: "",
+          }));
         }}
         error={props.errors.emergencyContactName}
       />
@@ -109,6 +124,11 @@ const ContactInformation = (props) => {
 
             companyPhone: e.target.value,
           }));
+              props.setErrors((prevState) => ({
+                ...prevState,
+
+                companyPhone: "",
+              }));
         }}
         error={props.errors.companyPhone}
       />
